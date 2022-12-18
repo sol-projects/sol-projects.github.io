@@ -1,0 +1,112 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sensors - Sensors Library Tutorial</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/school-book.min.css">
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/cmake.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <header>
+        <h1 class="title"> Sensors </h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="build.html">Build</a></li>
+            <li class="dropdown">
+                <a href="">Tutorial</a>
+                <div class="dropdown-content">
+                    <a href="tutorial/gui.html">GUI</a>
+                    <a href="tutorial/nogui.html">Console App</a>
+                    <a href="tutorial/sensors.html">Sensors Library</a>
+                </div>
+
+            </li>
+            <li class="dropdown">
+                <a href="">Documentation</a>
+                <div class="dropdown-content">
+                    <a href="documentation/gui.html">GUI</a>
+                    <a href="documentation/nogui.html">Console App</a>
+                    <a href="documentation/sensors.html">Sensors Library</a>
+                </div>
+            </li>
+            <li><a href="https://github.com/sol-projects/rpo">Github</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Setting up with CMake</h2>
+        <div>Setting up with CMake is easy. We recommend installing the library through FetchContent. <b>NOTE: make sure you select the correct version in the URL section of FetchContent.</b></div>
+        <pre><code class="cmake">cmake_minimum_required(VERSION 3.14)
+project(examples LANGUAGES CXX)
+
+include(FetchContent)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+FetchContent_Declare(
+    sensors
+    URL https://github.com/sol-projects/rpo/releases/download/v0.1.2-alpha/sensors.tar.gz
+    GIT_TAG main
+    DOWNLOAD_DIR sensors
+)
+FetchContent_MakeAvailable(sensors)
+
+add_executable(${PROJECT_NAME} main.cpp)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC sensors)
+</code></pre>
+        <h2>Getting available devices</h2>
+        <div>To iterate over devices, call the function <i>sensors::getDevices</i>. It returns a vector of type <i>sensors::Device</i> found satisfying the parameter condition. In the example, we first gather alll devices and then log their names in the for loop. For reference, if we wanted to return all CPU devices, we would pass in the parameter <i>sensors::Device::Type::CPU.</i></div>
+        <pre><code class="language-cpp">#include &lt;sensors/sensors.hpp&gt;
+#include &lt;sensors/Device.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    auto devices = sensors::getDevices(sensors::Device::Type::Any);
+
+    for(auto&amp; device : devices)
+    {
+        std::cout &lt;&lt; device.name &lt;&lt; '\n';
+    }
+}
+</pre></code>
+        <h2>Getting device temperatures and loads</h2>
+        <div>Call the function <i>sensors::getLoad</i> to get usage and <i>sensors::getTemp</i> to get temperature. They both accept a <i>sensor::Device</i> as a parameter and return a 32 bit int. The recommended way to store the data is into a variable is to store them inside the <i>sensors::Device</i> fields <i>load</i> and <i>temperature</i>, but this is not necessary.</div>
+        <pre><code>
+#include &lt;sensors/sensors.hpp&gt;
+#include &lt;sensors/Device.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    auto devices = sensors::getDevices(sensors::Device::Type::CPU);
+
+    for(auto&amp; device : devices)
+    {
+        device.load = sensors::getLoad(device);
+        device.temperature = sensors::getTemp(device);
+        std::cout &lt;&lt; device.load &lt;&lt; '\n';
+        std::cout &lt;&lt; device.temperature &lt;&lt; '\n';
+    }
+}
+
+
+        </code></pre>
+        <h2>Error checking </h2>
+         
+    </main>
+    <footer>
+        Have any suggestions or want to contribute? Find us on <a href="https://github.com/sol-projects/rpo">github</a>.
+    </footer>
+</body>
+</html>
+
