@@ -80,7 +80,7 @@ int main()
 }
 </pre></code>
         <h2>Getting device temperatures and loads</h2>
-        <div>Call the function <i>sensors::getLoad</i> to get usage and <i>sensors::getTemp</i> to get temperature. They both accept a <i>sensor::Device</i> as a parameter and return a 32 bit int. The recommended way to store the data is into a variable is to store them inside the <i>sensors::Device</i> fields <i>load</i> and <i>temperature</i>, but this is not necessary.</div>
+        <div>Call the function <i>sensors::getLoad</i> to get usage and <i>sensors::getTemp</i> to get temperature. They both accept a <i>sensor::Device</i> as a parameter and return a 32 bit int. The recommended way to store the data is to store them inside the <i>sensors::Device</i> fields <i>load</i> and <i>temperature</i>, but this is not necessary.</div>
         <pre><code>
 #include &lt;sensors/sensors.hpp&gt;
 #include &lt;sensors/Device.hpp&gt;
