@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,22 +20,22 @@
 
     <nav>
         <ul>
-            <li><a href="build.html">Build</a></li>
+            <li><a href="../home.html">Home</a></li>
             <li class="dropdown">
                 <a href="">Tutorial</a>
                 <div class="dropdown-content">
-                    <a href="tutorial/gui.html">GUI</a>
-                    <a href="tutorial/nogui.html">Console App</a>
-                    <a href="tutorial/sensors.html">Sensors Library</a>
+                    <a href="gui.html">GUI</a>
+                    <a href="nogui.html">Console App</a>
+                    <a href="sensors.html">Sensors Library</a>
                 </div>
 
             </li>
             <li class="dropdown">
                 <a href="">Documentation</a>
                 <div class="dropdown-content">
-                    <a href="documentation/gui.html">GUI</a>
-                    <a href="documentation/nogui.html">Console App</a>
-                    <a href="documentation/sensors.html">Sensors Library</a>
+                    <a href="../documentation/gui.html">GUI</a>
+                    <a href="../documentation/nogui.html">Console App</a>
+                    <a href="../documentation/sensors.html">Sensors Library</a>
                 </div>
             </li>
             <li><a href="https://github.com/sol-projects/rpo">Github</a></li>
@@ -81,8 +81,7 @@ int main()
 </pre></code>
         <h2>Getting device temperatures and loads</h2>
         <div>Call the function <i>sensors::getLoad</i> to get usage and <i>sensors::getTemp</i> to get temperature. They both accept a <i>sensor::Device</i> as a parameter and return a 32 bit int. The recommended way to store the data is to store them inside the <i>sensors::Device</i> fields <i>load</i> and <i>temperature</i>, but this is not necessary.</div>
-        <pre><code>
-#include &lt;sensors/sensors.hpp&gt;
+        <pre><code>#include &lt;sensors/sensors.hpp&gt;
 #include &lt;sensors/Device.hpp&gt;
 #include &lt;iostream&gt;
 
@@ -102,7 +101,41 @@ int main()
 
         </code></pre>
         <h2>Error checking </h2>
-         
+        <div>To check for errors, include <i>sensors/error.hpp</i>. <i>sensors::getTemp</i> tries to return an integer of value <i>sensors::error::code</i> when it detects it cannot properly measure its state.</div>
+        <pre><code>#include &lt;sensors/sensors.hpp&gt;
+#include &lt;sensors/Device.hpp&gt;
+#include &lt;iostream&gt;
+#include &lt;sensors/error.hpp&gt;
+
+int main()
+{
+    auto devices = sensors::getDevices(sensors::Device::Type::RAM);
+
+    for(auto&amp; device : devices)
+    {
+        device.load = sensors::getLoad(device);
+        device.temperature = sensors::getTemp(device);
+
+        if(device.load == sensors::error::code)
+        {
+            std::cout &lt;&lt; "Cannot get load!" &lt;&lt; '\n';
+        }
+        else
+        {
+            std::cout &lt;&lt; device.load &lt;&lt; '\n';
+        }
+
+        if(device.temperature == sensors::error::code)
+        {
+            std::cout &lt;&lt; "Cannot get temperature!" &lt;&lt; '\n';
+        }
+        else
+        {
+            std::cout &lt;&lt; device.temperature &lt;&lt; '\n';
+        }
+    }
+}
+        </code></pre>
     </main>
     <footer>
         Have any suggestions or want to contribute? Find us on <a href="https://github.com/sol-projects/rpo">github</a>.

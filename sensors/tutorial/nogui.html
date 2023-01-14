@@ -1,1 +1,62 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sensors - Sensors Library Tutorial</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/school-book.min.css">
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/cmake.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <header>
+        <h1 class="title"> Sensors </h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../home.html">Home</a></li>
+            <li class="dropdown">
+                <a href="">Tutorial</a>
+                <div class="dropdown-content">
+                    <a href="gui.html">GUI</a>
+                    <a href="nogui.html">Console App</a>
+                    <a href="sensors.html">Sensors Library</a>
+                </div>
+
+            </li>
+            <li class="dropdown">
+                <a href="">Documentation</a>
+                <div class="dropdown-content">
+                    <a href="../documentation/gui.html">GUI</a>
+                    <a href="../documentation/nogui.html">Console App</a>
+                    <a href="../documentation/sensors.html">Sensors Library</a>
+                </div>
+            </li>
+            <li><a href="https://github.com/sol-projects/rpo">Github</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Building manually</h2>
+        <div>To manually build the library, build the <a href="https://github.com/sol-projects/rpo">github</a> project with the commands <i>-DBUILD_GUI=OFF</i> and <i>-DBUILD_TESTS=OFF</i>.</div>
+        <h2>Installing binaries</h2>
+        <div>WIP</div>
+        <h2>Getting load/temperature of a component at an interval</h2>
+        <div>Use the flag <i>-t</i> to get the temperature and <i>-l</i> to get load of a component. Specify the type of the component with <i>-d</i> and the interval (ms) at which new data is displayed into the console with <i>-i</i>. The below code outputs the temperature of the CPU into the console every 100 ms. <b>NOTE: you can only get temperature or load (not both) from exactly one device using this method.</b></div>
+        <pre><code>app -t -d=CPU -i=100</code></pre>
+        <h2>Getting load/temperature of a component and saving it to a file</h2>
+        <div>Use the flag <i>-f</i> to specify you want the information to be saved in a CSV file instead of the console. The code below saves the temperature and load of CPU and GPU into 2 seperate files at an interval of 150 ms, one file for each device. The file is named <i>yyyy_mm_dd_hh_mm_ss_interval_component</i>, where the first part indicates start time of the measurements. To watch all devices, we would use <i>-d=all</i></div>
+        <pre><code>app -tlf -d=CPU,GPU -i=150</code></pre>
+    </main>
+    <footer>
+        Have any suggestions or want to contribute? Find us on <a href="https://github.com/sol-projects/rpo">github</a>.
+    </footer>
+</body>
+</html>
+
+
