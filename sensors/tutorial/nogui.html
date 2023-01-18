@@ -49,9 +49,14 @@
         <h2>Getting load/temperature of a component at an interval</h2>
         <div>Use the flag <i>-t</i> to get the temperature and <i>-l</i> to get load of a component. Specify the type of the component with <i>-d</i> and the interval (ms) at which new data is displayed into the console with <i>-i</i>. The below code outputs the temperature of the CPU into the console every 100 ms. <b>NOTE: you can only get temperature or load (not both) from exactly one device using this method.</b></div>
         <pre><code>app -t -d=CPU -i=100</code></pre>
+
         <h2>Getting load/temperature of a component and saving it to a file</h2>
         <div>Use the flag <i>-f</i> to specify you want the information to be saved in a CSV file instead of the console. The code below saves the temperature and load of CPU and GPU into 2 seperate files at an interval of 150 ms, one file for each device. The file is named <i>yyyy_mm_dd_hh_mm_ss_interval_component</i>, where the first part indicates start time of the measurements. To watch all devices, we would use <i>-d=all</i></div>
         <pre><code>app -tlf -d=CPU,GPU -i=150</code></pre>
+
+        <h2>Setting a future measurement</h2>
+        <div>Use the flags <i>-s</i> for the measurement start date and <i>-e</i> to set the end date. The format is the ISO 8601 standard of YYYY-MM-DDTHH:MM:SS.</div>
+        <pre><code>app -tlf -s="2023-1-18T19:13:00" -e="2023-1-18T20:00:00" -d=CPU,GPU -i=150</code></pre>
     </main>
     <footer>
         Have any suggestions or want to contribute? Find us on <a href="https://github.com/sol-projects/rpo">github</a>.
