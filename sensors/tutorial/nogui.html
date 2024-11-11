@@ -43,7 +43,19 @@
     </nav>
     <main>
         <h2>Building manually</h2>
-        <div>To manually build the library, build the <a href="https://github.com/sol-projects/rpo">github</a> project with the commands <i>-DBUILD_GUI=OFF</i> and <i>-DBUILD_TESTS=OFF</i>.</div>
+        <div>Requirements:<br>
+            - Linux or MacOS
+            - CMake version 3.18 - 3.20<br>
+            - CXX 20 compliant Compiler<br>
+            - Optional Requirements:<br>
+            - an internet connection<br>
+            - Git<br><br>
+
+            To manually build the project, build the <a href="https://github.com/sol-projects/sol-sensors">github</a> project with the commands <i>-DBUILD_GUI=OFF</i> and <i>-DBUILD_TESTS=OFF</i> if you don't want tests.<br> Example:
+<pre><code>cmake  -DBUILD_GUI=OFF -DBUILD_TESTS=OFF -S . -B Debug
+cmake --build Debug
+cd Debug
+./ProjectName</code></pre></div>
         <h2>Installing binaries</h2>
         <div>WIP</div>
         <h2>Getting load/temperature of a component at an interval</h2>
